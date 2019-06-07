@@ -1,13 +1,19 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+    <script src="./vertice.js">
+    </script>
+</HEAD>
+<BODY onload=init()>
 <div id="stage">
-    <canvas id="u-layer" width="1024" height="1024"></canvas>
-    <canvas id="g-layer" width="1024" height="1024"></canvas>
-    <canvas id="b-layer" width="1024" height="1024"></canvas>
+    <canvas id="u-layer" width="512" height="512"></canvas>
+    <canvas id="g-layer" width="512" height="512"></canvas>
+    <canvas id="b-layer" width="512" height="512"></canvas>
   </div>
 
   <style>
     #stage {
       position: relative;
-      border: 2px solid black
     }
     canvas { position: absolute; }
     #u-layer { z-index: 3 }
@@ -15,4 +21,5 @@
     #b-layer { z-index: 1 }
   </style>
 
-<script src="./quadtree.js"></script>
+</BODY>
+</HTML>

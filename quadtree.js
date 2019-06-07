@@ -1,14 +1,32 @@
 console.log("testing stuffs");
 
-var test = document.getElementById("g-layer");
-var ctx = test.getContext("2d");
-var test = document.getElementById("b-layer");
-var back = test.getContext("2d");
 var Point = function (x, y, name) {
     this.name = name;
     this.x = parseInt(x);
     this.y = parseInt(y);
     this.color = "black";
+}
+
+var ctx, back, test, tree;
+
+var init = function () {
+    test = document.getElementById("g-layer");
+    ctx = test.getContext("2d");
+    test = document.getElementById("b-layer");
+    back = test.getContext("2d");
+    tree = new QuadTree(0, 0, test.width, test.height);
+    
+    var gauss = function () {
+        return (Math.random() + Math.random() + Math.random() + Math.random()) / 4;
+    }
+    
+    for (var i = 0; i < 400; i++) {
+        tree.addPoint(new Point(gauss() * test.width, gauss() * test.height, "random"));
+    }
+    var tester = new Point(200, 300, "testpoint");
+    tester.color = "red";
+    tree.addPoint(tester);
+    draw();
 }
 
 var balanceDir = [[2, 3], [0, 2], [0, 1], [1, 3]];
@@ -159,24 +177,6 @@ var QuadTree = function (x, y, xEnd, yEnd) {
     }
 }
 
-var tree = new QuadTree(0, 0, test.width, test.height);
-
-var gauss = function () {
-    return (Math.random() + Math.random() + Math.random() + Math.random()) / 4;
-}
-
-for (var i = 0; i < 400; i++) {
-    tree.addPoint(new Point(gauss() * test.width, gauss() * test.height, "random"));
-}
-
-
-
-var tester = new Point(200, 300, "testpoint");
-tester.color = "red";
-//tree.addPoint(tester);
-var childs = [];
-tree.getChilds(childs)
-console.log(childs);
 var draw = function () {
     var points = tree.getPoints();
     for (var i = 0; i < points.length; i++) {
@@ -189,4 +189,3 @@ var draw = function () {
     }
     tree.drawSelf();
 }
-draw();
