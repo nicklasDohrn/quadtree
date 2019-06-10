@@ -21,3 +21,4 @@ Wie findet man die Nachbarn zum roten Punkt <i>schnell<i>
 ---
 # Aufbau eines Quadtree
 
+![80%](quadtree_basics.png)
