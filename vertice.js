@@ -1,7 +1,7 @@
 console.log("testing stuffs");
 var first = true;
 var mc = {};
-var gridSize = 8;
+var gridSize = 32;
 mc.startX = -1;
 mc.startY = -1;
 var lines = [];
@@ -32,7 +32,7 @@ var click = function (e) {
         tree.insertLine(l);
         ulayer.moveTo(l.x1, l.y1);
         ulayer.lineTo(l.x2, l.y2);
-        ulayer.strokeStyle = "#ff0000";
+        ulayer.strokeStyle = "#00ff00";
         ulayer.lineWidth = 2;
         ulayer.stroke();
         mc.startX = l.x2;
@@ -154,8 +154,8 @@ var QuadTree = function (x, y, xEnd, yEnd) {
         if (this.fill) {
             back.beginPath();
             back.rect(this.x, this.y, this.halfSize * 2, this.halfSize * 2);
-            back.fillStyle = "#00ffaa";
-            back.fill();
+            //back.fillStyle = "#00ffaa";
+            //back.fill();
             ctx.strokeRect(this.x, this.y, this.halfSize * 2, this.halfSize * 2);
             
         }
