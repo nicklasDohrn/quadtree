@@ -6,9 +6,10 @@
 </HEAD>
 <BODY onload=init()>
 <div id="stage">
-    <canvas id="u-layer" width="512" height="512"></canvas>
-    <canvas id="g-layer" width="512" height="512"></canvas>
-    <canvas id="b-layer" width="512" height="512"></canvas>
+    <canvas id="layer1" width="512" height="512"></canvas>
+    <canvas id="layer2" width="512" height="512"></canvas>
+    <canvas id="layer3" width="512" height="512"></canvas>
+    <canvas id="layer4" width="512" height="512"></canvas>
   </div>
 
   <style>
@@ -16,9 +17,10 @@
       position: relative;
     }
     canvas { position: absolute; }
-    #u-layer { z-index: 3 }
-    #g-layer { z-index: 2 }
-    #b-layer { z-index: 1 }
+    #layer4 { z-index: 4 }
+    #layer3 { z-index: 3 }
+    #layer2 { z-index: 2 }
+    #layer1 { z-index: 1 }
   </style>
 
 </BODY>

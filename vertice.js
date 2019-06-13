@@ -47,13 +47,13 @@ var toGrid = function (pos) {
 
 var ctx, test, tree, back, ulayer;
 var init = function () {
-    input = document.getElementById("u-layer");
+    input = document.getElementById("layer4");
     input.addEventListener("mousedown", click, false);
-    test = document.getElementById("g-layer");
+    test = document.getElementById("layer3");
     console.log(test);
     ctx = test.getContext("2d");
     ulayer = input.getContext("2d");
-    test = document.getElementById("b-layer");
+    test = document.getElementById("layer1");
     back = test.getContext("2d");
     tree = new QuadTree(0, 0, test.width, test.height);
 }

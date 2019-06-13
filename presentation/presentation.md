@@ -15,37 +15,37 @@ Wie findet man <i>schnell</i> die Nachbarn zum roten Punkt
 ---
 # Übersicht
 |![70%](./quad_points.png) |![70%](./quad_obj.png)|
-|:-:|:-:|
+|:-|:-|
 | Punktverwaltung | Geometrie|
 
 ---
 # Aufbau eines Quadtree
 
 |![70%](quadtree_basics.png)  |  ![70%](Quadtree_square.png) |
-|:-:|:-:|
-| Rekursive Baumstruktur|Begriffs-Konvention |
+|:-|:-:|
+| Rekursive Baumstruktur|Begriffs-Konventionen |
 
 ---
 
 # Explizite rekursive Konstruktion
 
-Wurzelknoten $\sigma_{root}$, allgemein:  $\sigma:=[x_\sigma+x_\sigma']\times[x_\sigma+x_\sigma']$
+Wurzelknoten $\sigma_{root}$, allgemein:  $\sigma:=[x_\sigma:x_\sigma']\times[x_\sigma:x_\sigma']$
 $\sigma_{NW},\sigma_{NO},\sigma_{SW},\sigma_{NO}$ sind Kinder von $\sigma$
 
 Punkte $p\in P$ werden in den Kindern von $\sigma$ gespiechert:
 $x_{mid}:=\frac {x_\sigma+ x_\sigma'}{2}\space\space\space\space y_{mid}:=\frac {y_\sigma+ y_\sigma'}{2}$
 
 $
-P_{NO}:=\{p\space|\space p_x>x_{mid}\space \&\space p_y>y_{mid}\space \&\space p\in P\}
+P_{NW}:=\{p\space|\space p_x\leqslant x_{mid}\space \&\space p_y\leqslant y_{mid}\space \&\space p\in P\}
 $
 $
-P_{NW}:=\{p\space|\space p_x\leqslant x_{mid}\space \&\space p_y>y_{mid}\space \&\space p\in P\}
+P_{NO}:=\{p\space|\space p_x>x_{mid}\space \&\space p_y\leqslant y_{mid}\space \&\space p\in P\}
 $
 $
-P_{SO}:=\{p\space|\space p_x>x_{mid}\space \&\space  p_y \leqslant y_{mid}\space \&\space p\in P\}
+P_{SW}:=\{p\space|\space p_x\leqslant x_{mid}\space \&\space  p_y > y_{mid}\space \&\space p\in P\}
 $
 $
-P_{SW}:=\{p\space|\space p_x \leqslant x_{mid}\space \&\space p_y\leqslant y_{mid}\space \&\space p\in P\}
+P_{SO}:=\{p\space|\space p_x > x_{mid}\space \&\space p_y>y_{mid}\space \&\space p\in P\}
 $
 
 ---
@@ -75,50 +75,55 @@ function insertPoint (Tree t, Point p) {
 # Punkt einfügen
 ## Laufzeit
 ### Satz
-|Eine Quadtree der Tiefe $d$ , welcher  $n$ Punkte der Menge $P$ speichert, kann in der Zeit $O((d+1)n)$ erzeugt werden.|
-|:-:|
+  
+|<span style="font-weight:500"> Eine Quadtree der Tiefe $d$ , welcher  $n$ Punkte speichert, kann in der Zeit $O((d+1)n)$ erzeugt werden und hat $O((d+1)n)$ Knoten. </span>|
+|:-|
+
 
 ---
-# Finde Nachbar
+# Nachbarn Finden
 ![80%](Directions_plain.png)
 
 ---
-# Finde Nachbar 
+# Nachbarn Finden 
 Richtung und Position zu Enum übersetzen:
+  
+``` js
+Enum Pos = {NW=0, NO=1, SW=2, SO=3}
+Enum Direction = {NORTH=0, EAST/OST=1, SOUTH=2, WEST=3}
 
-```
-Enum Pos = {NW = 0, NO = 1, SW = 2, SO = 3}
-
-(getInsideNeighbour)
+//getInsideNeighbour
 function gINeighbour (Direction d, Position t) {
-	return <correctDirection>
+    return <correctDirection>
 }
-```
-|<span style="color:green">gINeighbour(NORTH, Pos.SW)<br> return  Pos.NW </span><br><br><span style="color:red">gINeighbour(NORTH, Pos.N0)<br> return -1 (no Neighbour found)</span>| ![50%](Directions.png)|
-|:-:|:-:|
+  ``` 
+  
+|<span style="color:green; font-weight:500">gINeighbour(NORTH, Pos.SW)<br> return  Pos.NW </span><br><br><span style="color:red; font-weight:500">gINeighbour(NORTH, Pos.N0)<br> return -1 (no Neighbour found)</span>| ![50%](Directions.png)|
+|:-|:-:|
 
 ---
-# Finde Nachbar 
+# Nachbarn Finden
 Richtung und Position zu Enum übersetzen:
 
-```
-Enum Pos = {NW = 0, NO = 1, SW = 2, SO = 3}
+```js
+Enum Pos = {NW=0, NO=1, SW=2, SO=3}
+Enum Direction = {NORTH=0, EAST/OST=1, SOUTH=2, WEST=3}
 
-(getOutsideNeighbour)
+//getOutsideNeighbour
 function gONeighbour (Direction d, Position t) {
 	return <correctDirection>
 }
 ```
-|<span style="color:red">gINeighbour(NORTH, Pos.SW)<br> return -1 (no Neighbour found)</span><br><br><span style="color:green">gINeighbour(NORTH, Pos.N0)<br> return Pos.SO</span>| ![50%](Directions_outside.png)|
-|:-:|:-:|
+|<span style="color:red; font-weight:500">gONeighbour(NORTH, Pos.SW)<br> return -1 //no Neighbour found</span><br><br><span style="color:green; font-weight:500">gONeighbour(NORTH, Pos.N0)<br> return Pos.S0</span>| ![50%](Directions_outside.png)|
+|:-|:-:|
 
 ---
-# Finde Nachbar
+# Nachbarn Finden
 ### Algorithmus
 
 ```js
 Enum Direction = {N = 0, O = 1, S = 2, W = 3}
-Enum Po = {NW = 0, NO = 1, SW = 2, SO = 3}
+Enum Pos = {NW = 0, NO = 1, SW = 2, SO = 3}
 
 function findNeighbour(Tree t, Direction d) {
   if(t.parent == null) return null;
@@ -135,50 +140,51 @@ function findNeighbour(Tree t, Direction d) {
 
 ```
 ---
-# Finde Nachbar
+# Nachbarn Finden
 ## Laufzeit
 ### Satz
-|Sei $T$ ein Quadtree der Tiefe $d$, so kann für einen Knoten $v$ der Nachbar in gegebener Richtung in $O(d+1)$ gefunden werden.|
-|:-:|
+|<span style="font-weight:500">Sei $T$ ein Quadtree der Tiefe $d$, so kann für einen Knoten $v$ der Nachbar in gegebener Richtung in $O(d+1)$ gefunden werden.</span>|
+|:-|
 
 ---
-# Balancieren eines Quadtree
+# Balancieren eines Quadtrees
 
 ![100%](Balance_basic.png)
+Grafische Darstellung
 
 ---
-# Balancieren eines Quadtree
-## in Baumdarstellung 
+# Balancieren eines Quadtrees
 
 ![80%](Balance_tree.png)
 
+Baumdarstellung
+
 ---
-# Balancieren eines Quadtree 
+# Balancieren eines Quadtrees
 ### Algorithmus
-```
+```js
 function balance(QTree root) {
   List l = root.getLeavesRecursive();
   for (Qtree t in l){
-    for(i = 0; i < 4, i++) {
-      neighbour = t.getNeighbour(i);
+    for(direction = 0; direction < 4, direction++) {
+      neighbour = t.getNeighbour(direction)
       if(neighbour != null && neighbour.childs != null){
-        t.addChilds();
-        if(t.point != null) 
-          t.insertPointToChilds(t.point)
-        l.append(t.getChilds());
-        l.append(getNeighboursWithoutChilds(t));
-        break;
-      }
-    }
-  }
-}
+      	if(smallChildsAdjacent(neighbour,direction)) {
+          t.addChilds()
+          l.append(t.getChilds())
+          l.append(getNeighboursWithoutChilds(t))
+        
+          if(t.point != null) 
+            t.insertPointToChilds(t.point)
+          break;
+} } } } }
 ```
 
 ---
-# Balancieren eines Quadtree
+# Balancieren eines Quadtrees
 ## Laufzeit
 ### Satz
-|Sei $T$ ein Quadtree mit $m$ Knoten, dann hat der balancierte Quadtree $T'$ $O(m)$ Knoten und kann in $O((d+1)m)$ konstruiert werden.|
+|<span style="font-weight:500">Sei $T$ ein Quadtree mit $m$ Knoten, dann hat der balancierte Quadtree $T'$ $O(m)$ Knoten und kann in $O((d+1)m)$ aus $T$ konstruiert werden.</span>|
 |-|
 
 ---
@@ -256,7 +262,7 @@ function insertLine (Qtree t, Line l) {
 # Netzkonstruktion mit Quadtrees
 ## Laufzeit
 ### Satz
-|Sei $M$ ein Menge disjunkter polygonaler Komponenten im Quadrat $[0:U]\times[0:U]$, mit den vorher genannten Anforderungen, so lässt sich ein Netz mit $O(p(S)\log U)$ Dreiecken für M erzeugen. Hierbei ist $p(S)$ die Summe der Perimeter der Komponenten von $M$, und das Netz kann in $O(p(S)\log^2U)$ erzeugt werden.|
+|<span style="font-weight:500">Sei $M$ ein Menge disjunkter polygonaler Komponenten im Quadrat $[0:U]\times[0:U]$, mit den vorher genannten Anforderungen, so lässt sich ein Netz mit $O(p(S)\log U)$ Dreiecken für M erzeugen. Hierbei ist $p(S)$ die Summe der Perimeter der Komponenten von $M$, und das Netz kann in $O(p(S)\log^2U)$ erzeugt werden.</span>|
 |-|
 
 ---
