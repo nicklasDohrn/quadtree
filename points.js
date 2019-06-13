@@ -6,16 +6,33 @@ var Point = function (x, y, name) {
     this.y = parseInt(y);
     this.color = "black";
 }
+
+var lastPoint = null
 var click = function (e) {
     var point = new Point(e.pageX - 8,e.pageY - 8);
     point.color = "#00aa22"
     tree.insertPoint(point);
+    lastPoint = point;
+    draw();
+}
+
+var colorNeighbours = function() {
+    if(lastPoint == null) return;
+    var parent = lastPoint.parent;
+    for(var i = 0; i < 4; i++){
+        var temp = parent.getNeighbour(i);
+        if(temp != null){
+            temp.fill = true;
+            temp.color = "#88ffaa";
+        }
+    }
     draw();
 }
 
 var layer, canvas, tree, UNITSIZE;
 
 var init = function () {
+    lastPoint = null;
     var input = document.getElementById("layer4");
     input.addEventListener("mousedown", click, false);
     UNITSIZE = 8;
@@ -117,7 +134,7 @@ var QuadTree = function (x, y, xEnd, yEnd) {
         if (this.fill) {
             layer[0].beginPath();
             layer[0].rect(this.x, this.y, this.halfSize * 2, this.halfSize * 2);
-            layer[0].fillStyle = "red";
+            layer[0].fillStyle = this.color ? this.color : "red";
             layer[0].fill();
         }
         else
@@ -170,6 +187,7 @@ var QuadTree = function (x, y, xEnd, yEnd) {
                     if (childs[0].childs != null || childs[1].childs != null) {
                         count++;
                         current.fill = true;
+                        current.color = "#88aaff";
                         if (current.point != null) {
                             current.addChilds();
                             this.insertPoint(current.point);

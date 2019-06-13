@@ -2,7 +2,7 @@
 <HTML>
 
 <HEAD>
-  <script src="./points.js">
+  <script src="./vertice.js">
   </script>
 </HEAD>
 
@@ -15,7 +15,7 @@
   </div>
   <div onclick="init()" class="button" id="reload">reload</div>
   <div onclick="tree.balance()" class="button" id="balance">balance</div>
-  <div onclick="colorNeighbours()" class="button" id="neighbour">show Neighbour</div>
+  <div onclick="tree.triangulate()" class="button" id="triangulate">triangulate</div>
 
   <style>
     #stage {
@@ -46,7 +46,7 @@
       margin: 10px 600px;
     }
 
-    #neighbour {
+    #triangulate {
       margin: 70px 600px;
     }
 

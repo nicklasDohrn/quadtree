@@ -32,8 +32,8 @@ var click = function (e) {
         tree.insertLine(l);
         ulayer.moveTo(l.x1, l.y1);
         ulayer.lineTo(l.x2, l.y2);
-        ulayer.strokeStyle = "#00ff00";
-        ulayer.lineWidth = 2;
+        ulayer.strokeStyle = "#ff4444";
+        ulayer.lineWidth = 4;
         ulayer.stroke();
         mc.startX = l.x2;
         mc.startY = l.y2;
@@ -45,11 +45,18 @@ var toGrid = function (pos) {
     return parseInt(pos / (gridSize)) * gridSize;
 }
 
-var ctx, test, tree, back, ulayer;
+var layer, ctx, test, tree, back, ulayer;
 var init = function () {
+    first = true;
+    layer = [];
+    for(var i = 0; i < 4; i++) {
+        canvas = document.getElementById("layer" + (i+1));
+        layer[i] = canvas.getContext("2d");
+        layer[i].clearRect(0, 0, canvas.width, canvas.height);
+    }
     input = document.getElementById("layer4");
     input.addEventListener("mousedown", click, false);
-    test = document.getElementById("layer3");
+    test = document.getElementById("layer2");
     console.log(test);
     ctx = test.getContext("2d");
     ulayer = input.getContext("2d");
@@ -151,10 +158,13 @@ var QuadTree = function (x, y, xEnd, yEnd) {
 
     this.drawSelf = function (onlyParents) {
         if(this.childs == null && !this.triang && onlyParents) return;
+        if(!onlyParents) ctx = layer[1];
+        else ctx = layer[2];
+
         if (this.fill) {
             back.beginPath();
             back.rect(this.x, this.y, this.halfSize * 2, this.halfSize * 2);
-            //back.fillStyle = "#00ffaa";
+            //back.fillStyle = "#88ffaa";
             //back.fill();
             ctx.strokeRect(this.x, this.y, this.halfSize * 2, this.halfSize * 2);
             
@@ -168,6 +178,13 @@ var QuadTree = function (x, y, xEnd, yEnd) {
     }
 
     this.triangulate = function () {
+        if(this.parent == null) {
+            layer[2].beginPath();
+            layer[2].rect(0,0,canvas.width,canvas.height);
+            layer[2].fillStyle = "#ffffff";
+            layer[2].fill();
+        }
+
         this.drawSelf(true);
         if (this.triang) {
             return;
@@ -192,12 +209,12 @@ var QuadTree = function (x, y, xEnd, yEnd) {
                 }
             }
             for(var key in l) {
-                ctx.moveTo(l[key].x1, l[key].y1);
-                ctx.lineTo(l[key].x2, l[key].y2);
-                ctx.strokeStyle = "#004466";
-                ctx.lineWidth = 2;
+                layer[2].moveTo(l[key].x1, l[key].y1);
+                layer[2].lineTo(l[key].x2, l[key].y2);
+                layer[2].strokeStyle = "#004466";
+                layer[2].lineWidth = 2;
             }
-            ctx.stroke(); 
+            layer[2].stroke(); 
         }
         else
             for (var key in this.childs) {
@@ -260,11 +277,12 @@ var QuadTree = function (x, y, xEnd, yEnd) {
                 }
             }
         }
+        draw();
         return count;
     }
 }
 
 
 var draw = function () {
-    tree.drawSelf(true);
+    tree.drawSelf(false);
 }

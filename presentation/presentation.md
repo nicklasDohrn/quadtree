@@ -27,7 +27,7 @@ Wie findet man <i>schnell</i> die Nachbarn zum roten Punkt
 
 ---
 
-# Explizite rekursive Konstruktion
+# Punkte einfügen
 
 Wurzelknoten $\sigma_{root}$, allgemein:  $\sigma:=[x_\sigma:x_\sigma']\times[x_\sigma:x_\sigma']$
 $\sigma_{NW},\sigma_{NO},\sigma_{SW},\sigma_{NO}$ sind Kinder von $\sigma$
@@ -50,7 +50,7 @@ $
 
 ---
 
-# Punkt einfügen
+# Punkte einfügen
 ### Algorithmus
 
 ```js
@@ -72,7 +72,7 @@ function insertPoint (Tree t, Point p) {
 ```
 ---
 
-# Punkt einfügen
+# Punkte einfügen
 ## Laufzeit
 ### Satz
   
@@ -126,7 +126,7 @@ Enum Direction = {N = 0, O = 1, S = 2, W = 3}
 Enum Pos = {NW = 0, NO = 1, SW = 2, SO = 3}
 
 function findNeighbour(Tree t, Direction d) {
-  if(t.parent == null) return null;
+  if(t.parent == null) return null
   
   else if(gINeigbour(d, t.position) != -1) {
     return t.parent.childs[gINeigbour(d, t.position)
@@ -176,7 +176,7 @@ function balance(QTree root) {
         
           if(t.point != null) 
             t.insertPointToChilds(t.point)
-          break;
+          break
 } } } } }
 ```
 
@@ -244,15 +244,15 @@ Unbalancierte Netzberechnung erzeugt unvollständiges Netz
 ```
 function insertLine (Qtree t, Line l) {
   if(t.size <= UNITSIZE) {
-    if(lineCrossesSquare(t, l) || lineTouchesNorW(t,l));
-      t.insertLineSegment(l);
-    return;
+    if(lineCrossesSquare(t, l) || lineTouchesNorW(t,l))
+      t.insertLineSegment(l)
+    return
   }
   if(this.childs != null) {
-    t.insertLineInChilds(l);
+    t.insertLineInChilds(l)
   } else if(lineIntersectsSquare(t,l) {
-    t.addChilds();
-    t.insertLineInChilds(l);
+    t.addChilds()
+    t.insertLineInChilds(l)
   }
 }
 ```
