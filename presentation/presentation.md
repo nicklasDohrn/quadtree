@@ -76,16 +76,16 @@ function insertPoint (Tree t, Point p) {
 ## Laufzeit
 ### Satz
   
-|<span style="font-weight:500"> Eine Quadtree der Tiefe $d$ , welcher  $n$ Punkte speichert, kann in der Zeit $O((d+1)n)$ erzeugt werden und hat $O((d+1)n)$ Knoten. </span>|
+|<span style="font-weight:500"> Ein Quadtree der Tiefe $d$ , welcher  $n$ Punkte speichert, kann in der Zeit $O((d+1)n)$ erzeugt werden und hat $O((d+1)n)$ Knoten. </span>|
 |:-|
 
 
 ---
-# Nachbarn Finden
+# Nachbarn finden
 ![80%](Directions_plain.png)
 
 ---
-# Nachbarn Finden 
+# Nachbarn finden 
 Richtung und Position zu Enum übersetzen:
   
 ``` js
@@ -102,7 +102,7 @@ function gINeighbour (Direction d, Position t) {
 |:-|:-:|
 
 ---
-# Nachbarn Finden
+# Nachbarn finden
 Richtung und Position zu Enum übersetzen:
 
 ```js
@@ -118,7 +118,7 @@ function gONeighbour (Direction d, Position t) {
 |:-|:-:|
 
 ---
-# Nachbarn Finden
+# Nachbarn finden
 ### Algorithmus
 
 ```js
@@ -140,7 +140,7 @@ function findNeighbour(Tree t, Direction d) {
 
 ```
 ---
-# Nachbarn Finden
+# Nachbarn finden
 ## Laufzeit
 ### Satz
 |<span style="font-weight:500">Sei $T$ ein Quadtree der Tiefe $d$, so kann für einen Knoten $v$ der Nachbar in gegebener Richtung in $O(d+1)$ gefunden werden.</span>|
@@ -196,9 +196,9 @@ function balance(QTree root) {
 # Netzkonstruktion mit Quadtrees
 ### Bedingungen und Vorgaben:
 - Polygon Ecken haben nur die Winkel 0°, 45°, 90° und 135°.
-- Es wird, wenn möglich, ein nicht-uniformes Netz erzeugt
+- Es wird, wenn möglich, ein nicht-uniformes Netz erzeugt.
 - Ein Quadtree, der eine Kante eines Polygons enthält, wird aufgeteilt, bis das Kind mit der Polygonkante Minimalgröße hat.
-- Das gewünschte Netz muss aus einem Balancierten Graphen erzeugt werden.
+- Das gewünschte Netz muss aus einem balancierten Graphen erzeugt werden.
 
 
 ---
